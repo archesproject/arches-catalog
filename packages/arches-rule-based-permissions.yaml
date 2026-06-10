@@ -1,0 +1,15 @@
+name: arches-rule-based-permissions         # PyPI name or unique slug (lowercase, hyphens)
+kind: extension               # extension | application
+summary: Resource instance permission framework that enforces attribute based permissions 
+repository: https://github.com/you/your-package
+pypi: arches-rule-based-permissions         # omit if not on PyPI
+docs: https://github.com/fargeo/arches-rule-based-permissions#arches-rule-based-permissions     # omit if no docs site
+license: AGPL-3.0-or-later      # SPDX identifier
+maintainers:
+  - fargeo
+arches_versions: ">=8.1,<9.0"  # PEP 440 version specifier
+domains:
+  - arches-permissions           # high-level subject area(s)
+tags:
+  - permissions                    # lowercase, hyphen-separated
+status: experimental            # experimental | beta | stable | maintenance
