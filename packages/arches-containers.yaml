@@ -1,0 +1,19 @@
+name: arches-containers
+kind: extension
+summary: A CLI tool to create and manage containerised Arches development environments using Docker Compose templates.
+repository: https://github.com/HistoricEngland/arches-containers
+pypi: arches-containers
+docs: https://deepwiki.com/HistoricEngland/arches-containers
+license: AGPL-3.0-or-later
+maintainers:
+  - HistoricEngland
+arches_versions: ">=7.6,<=8.1"
+domains:
+  - developer-tools
+tags:
+  - docker
+  - containers
+  - cli
+  - devtools
+  - development-environment
+status: stable
