@@ -1,6 +1,6 @@
 # arches-packages
 
-The community registry for [Arches](https://www.archesproject.org/) extensions and applications. Browse the catalog at **https://archesproject.github.io/arches-packages** (or your deployed URL).
+The community registry for [Arches](https://www.archesproject.org/) extensions and applications. Browse the catalog at **https://archesproject.github.io/arches-catalog** (or your deployed URL).
 
 ---
 
