@@ -1,0 +1,19 @@
+name: arches-modular-reports
+kind: extension
+summary: Configurable, component-based Vue.js report templates for Arches resource models.
+repository: https://github.com/archesproject/arches-modular-reports
+pypi: arches-modular-reports
+license: AGPL-3.0-or-later
+maintainers:
+  - archesproject
+arches_versions: ">=7.6.22,<8.3"
+domains:
+  - reporting
+  - cultural-heritage
+tags:
+  - reports
+  - vue
+  - configurable
+  - frontend
+  - resource-models
+status: beta

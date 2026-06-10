@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/archesproject/arches-packages/main/schema.json",
+  "title": "Arches Package Manifest",
+  "description": "Schema for an arches-packages manifest file describing an Arches extension or application.",
+  "type": "object",
+  "required": ["name", "kind", "summary", "repository", "license", "maintainers", "arches_versions", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "PyPI package name, or a unique slug if not on PyPI. Use lowercase with hyphens.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*[a-z0-9]$"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Whether this is a core extension, an application, or a developer tool.",
+      "enum": ["extension", "application"]
+    },
+    "summary": {
+      "type": "string",
+      "description": "One-sentence description of what the package does (140 chars max).",
+      "maxLength": 140
+    },
+    "repository": {
+      "type": "string",
+      "description": "URL of the source repository (GitHub, GitLab, etc.).",
+      "format": "uri"
+    },
+    "pypi": {
+      "type": "string",
+      "description": "PyPI package name if published. Omit if not on PyPI.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*[a-z0-9]$"
+    },
+    "docs": {
+      "type": "string",
+      "description": "URL for package documentation.",
+      "format": "uri"
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier. See https://spdx.org/licenses/",
+      "examples": ["AGPL-3.0-or-later", "MIT", "Apache-2.0"]
+    },
+    "maintainers": {
+      "type": "array",
+      "description": "List of GitHub usernames or org names responsible for this package.",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "arches_versions": {
+      "type": "string",
+      "description": "PEP 440 version specifier for compatible Arches versions, e.g. '>=8.0,<9.0'.",
+      "examples": [">=8.0,<9.0", ">=7.6,<8.3", ">=8.1"]
+    },
+    "domains": {
+      "type": "array",
+      "description": "High-level subject domains this package targets.",
+      "items": { "type": "string" },
+      "examples": [["vocabularies", "thesauri"], ["historic-environment", "cultural-heritage"]]
+    },
+    "tags": {
+      "type": "array",
+      "description": "Freeform tags for search and filtering (lowercase, hyphen-separated).",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "Development maturity of the package.",
+      "enum": ["experimental", "beta", "stable", "maintenance"]
+    }
+  }
+}

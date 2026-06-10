@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+  <meta name="description" content="Discover extensions and applications built on the Arches heritage data management platform." />
+  <link rel="stylesheet" href="/css/main.css" />
+  <!-- Pagefind UI (added after build by the pagefind CLI) -->
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="/" class="site-logo">
+        <img src="/public/logo.svg" alt="Arches" class="site-logo-img">
+        <span class="site-logo-text">Catalog</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="https://github.com/archesproject/arches-catalog#submitting-a-package">Submit a package</a></li>
+        <li><a href="https://github.com/archesproject/arches-catalog">GitHub</a></li>
+        <li><a href="https://arches.readthedocs.io">Arches Docs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <img src="/public/logo.svg" alt="Arches" class="footer-logo">
+    <p>
+      Manifest data is <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.
+      Each package carries its own license. Built with
+      <a href="https://www.11ty.dev/">Eleventy</a>.
+      <a href="https://github.com/archesproject/arches-catalog">Contribute on GitHub</a>.
+    </p>
+  </footer>
+</body>
+</html>

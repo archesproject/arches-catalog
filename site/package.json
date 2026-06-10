@@ -1,0 +1,16 @@
+{
+  "name": "arches-packages-site",
+  "version": "1.0.0",
+  "description": "Arches community packages catalog site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve --watch",
+    "clean": "rm -rf _site"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "pagefind": "^1.3.0"
+  }
+}

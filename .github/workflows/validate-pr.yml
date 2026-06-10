@@ -1,0 +1,185 @@
+name: Validate manifest PR
+
+on:
+  pull_request:
+    paths:
+      - "packages/**.yaml"
+      - "schema.json"
+
+jobs:
+  validate:
+    name: Validate changed manifests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validation tools
+        run: pip install check-jsonschema PyYAML requests
+
+      - name: Find changed manifest files
+        id: changed
+        run: |
+          # List YAML files changed in this PR (new or modified)
+          git fetch origin ${{ github.base_ref }} --depth=1
+          changed=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- 'packages/*.yaml')
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$changed" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Validate schema for each changed manifest
+        if: steps.changed.outputs.files != ''
+        run: |
+          failed=0
+          while IFS= read -r file; do
+            if [ -f "$file" ]; then
+              echo "Validating schema: $file"
+              check-jsonschema --schemafile schema.json "$file" || failed=1
+            fi
+          done <<< "${{ steps.changed.outputs.files }}"
+          exit $failed
+
+      - name: Validate URLs and PyPI presence
+        if: steps.changed.outputs.files != ''
+        run: |
+          python - <<'PYEOF'
+          import sys
+          import yaml
+          import requests
+          import os
+
+          files = """${{ steps.changed.outputs.files }}""".strip().splitlines()
+          failures = []
+
+          for filepath in files:
+              filepath = filepath.strip()
+              if not filepath or not os.path.exists(filepath):
+                  continue
+
+              with open(filepath) as f:
+                  manifest = yaml.safe_load(f)
+
+              package_name = manifest.get("name", filepath)
+
+              # Check repository URL
+              repo_url = manifest.get("repository", "")
+              if repo_url:
+                  try:
+                      r = requests.head(repo_url, allow_redirects=True, timeout=10)
+                      if r.status_code >= 400:
+                          failures.append(f"{package_name}: repository URL returned {r.status_code}: {repo_url}")
+                  except requests.RequestException as e:
+                      failures.append(f"{package_name}: repository URL unreachable: {repo_url} ({e})")
+
+              # Check docs URL
+              docs_url = manifest.get("docs", "")
+              if docs_url:
+                  try:
+                      r = requests.head(docs_url, allow_redirects=True, timeout=10)
+                      if r.status_code >= 400:
+                          failures.append(f"{package_name}: docs URL returned {r.status_code}: {docs_url}")
+                  except requests.RequestException as e:
+                      failures.append(f"{package_name}: docs URL unreachable: {docs_url} ({e})")
+
+              # Check PyPI package
+              pypi_name = manifest.get("pypi", "")
+              if pypi_name:
+                  try:
+                      r = requests.get(f"https://pypi.org/pypi/{pypi_name}/json", timeout=10)
+                      if r.status_code == 404:
+                          failures.append(f"{package_name}: pypi package not found: {pypi_name}")
+                      elif r.status_code >= 400:
+                          failures.append(f"{package_name}: PyPI returned {r.status_code} for: {pypi_name}")
+                  except requests.RequestException as e:
+                      failures.append(f"{package_name}: PyPI check failed: {pypi_name} ({e})")
+
+          if failures:
+              print("Validation failures:")
+              for f in failures:
+                  print(f"  - {f}")
+              sys.exit(1)
+          else:
+              print("All URL and PyPI checks passed.")
+          PYEOF
+
+      - name: Validate SPDX license identifiers
+        if: steps.changed.outputs.files != ''
+        run: |
+          python - <<'PYEOF'
+          import sys
+          import yaml
+          import json
+          import requests
+          import os
+
+          # Fetch current SPDX license list
+          try:
+              r = requests.get("https://spdx.org/licenses/licenses.json", timeout=15)
+              spdx_ids = {lic["licenseId"] for lic in r.json()["licenses"]}
+          except Exception:
+              print("Warning: Could not fetch SPDX license list; skipping license validation.")
+              sys.exit(0)
+
+          files = """${{ steps.changed.outputs.files }}""".strip().splitlines()
+          failures = []
+
+          for filepath in files:
+              filepath = filepath.strip()
+              if not filepath or not os.path.exists(filepath):
+                  continue
+
+              with open(filepath) as f:
+                  manifest = yaml.safe_load(f)
+
+              package_name = manifest.get("name", filepath)
+              license_id = manifest.get("license", "")
+
+              # Strip "-or-later" suffix (SPDX compound expressions) for lookup
+              base_id = license_id.replace("-or-later", "").replace("-only", "")
+
+              if license_id and base_id not in spdx_ids and license_id not in spdx_ids:
+                  failures.append(
+                      f"{package_name}: unrecognized SPDX license identifier '{license_id}'. "
+                      f"See https://spdx.org/licenses/"
+                  )
+
+          if failures:
+              print("License validation failures:")
+              for f in failures:
+                  print(f"  - {f}")
+              sys.exit(1)
+          else:
+              print("All license identifiers look valid.")
+          PYEOF
+
+      - name: Check for duplicate package names
+        if: steps.changed.outputs.files != ''
+        run: |
+          python - <<'PYEOF'
+          import sys
+          import yaml
+          import os
+          from pathlib import Path
+
+          # Build name -> file mapping across all manifests
+          all_manifests = {}
+          for path in Path("packages").glob("*.yaml"):
+              with open(path) as f:
+                  try:
+                      manifest = yaml.safe_load(f)
+                      name = manifest.get("name", "")
+                      if name in all_manifests:
+                          print(f"Duplicate name '{name}': found in {all_manifests[name]} and {path}")
+                          sys.exit(1)
+                      all_manifests[name] = str(path)
+                  except yaml.YAMLError as e:
+                      # Schema validation will catch parse errors; skip here
+                      pass
+
+          print(f"No duplicate names found across {len(all_manifests)} manifests.")
+          PYEOF

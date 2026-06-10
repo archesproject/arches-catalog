@@ -1,0 +1,18 @@
+name: arches-rascolls
+kind: application
+summary: Reference and sample collections application for Arches, providing demo datasets and reference data for development and testing.
+repository: https://github.com/archesproject/arches-rascolls
+pypi: arches-rascolls
+license: AGPL-3.0-or-later
+maintainers:
+  - archesproject
+arches_versions: ">=8.2,<9.0"
+domains:
+  - reference-data
+  - cultural-heritage
+tags:
+  - reference-collections
+  - sample-data
+  - demo
+  - collections-management
+status: experimental

@@ -1,0 +1,19 @@
+name: arches-querysets
+kind: extension
+summary: Django-native ORM interface for querying Arches graph data, building APIs, and expressing application business logic.
+repository: https://github.com/archesproject/arches-querysets
+pypi: arches-querysets
+license: AGPL-3.0-or-later
+maintainers:
+  - archesproject
+arches_versions: ">=7.6.12,!=8.0.0,<8.2"
+domains:
+  - developer-tooling
+tags:
+  - django
+  - orm
+  - querysets
+  - rest-api
+  - developer-tools
+  - graph-data
+status: stable

@@ -1,0 +1,153 @@
+---
+layout: base.html
+title: Arches Catalog — Community Extensions and Applications
+---
+
+<section class="hero">
+  <div class="hero-brand">
+    <img src="/public/logo.svg" alt="Arches" class="hero-logo">
+    <h1 class="hero-page-title">Catalog</h1>
+  </div>
+  <p class="hero-subtitle">
+    Discover community extensions and applications built on the
+    <a href="https://www.archesproject.org/">Arches platform</a>.
+  </p>
+  <a href="https://github.com/archesproject/arches-catalog#submitting-a-package"
+     class="btn-primary">
+    Submit a package
+  </a>
+</section>
+
+<section class="catalog">
+  <div class="catalog-controls">
+    <input
+      type="search"
+      id="search"
+      class="search-input"
+      placeholder="Search packages…"
+      aria-label="Search packages"
+    />
+
+    <div class="filters" role="group" aria-label="Filter packages">
+      <select id="filter-kind" aria-label="Filter by type">
+        <option value="">All types</option>
+        <option value="application">Application</option>
+        <option value="extension">Extension</option>
+      </select>
+
+      <select id="filter-status" aria-label="Filter by status">
+        <option value="">All statuses</option>
+        <option value="stable">Stable</option>
+        <option value="beta">Beta</option>
+        <option value="experimental">Experimental</option>
+        <option value="maintenance">Maintenance</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="package-count">
+    Showing <span id="visible-count">{{ packages | length }}</span> of
+    {{ packages | length }} packages
+  </p>
+
+  <ul class="package-grid" id="package-grid" role="list">
+    {%- for pkg in packages | sort(attribute="name") %}
+    <li
+      class="package-card"
+      data-kind="{{ pkg.kind }}"
+      data-status="{{ pkg.status }}"
+      data-pagefind-body
+    >
+      <div class="card-header">
+        <a href="{{ pkg.repository }}" class="card-name" rel="noopener noreferrer">
+          {{ pkg.name }}
+        </a>
+        <span class="badge badge-kind">{{ pkg.kind }}</span>
+        <span class="badge {{ pkg.status | statusClass }}">{{ pkg.status }}</span>
+      </div>
+
+      <p class="card-summary">{{ pkg.summary }}</p>
+
+      <div class="card-meta">
+        {%- set version = pkg | pypiVersion %}
+        {%- if version %}
+        <span class="meta-item" title="Latest PyPI version">
+          v{{ version }}
+        </span>
+        {%- endif %}
+
+        {%- set stars = pkg | githubStars %}
+        {%- if stars != null %}
+        <span class="meta-item" title="GitHub stars">
+          ★ {{ stars }}
+        </span>
+        {%- endif %}
+
+        {%- set pushed = pkg | lastPushed %}
+        {%- if pushed %}
+        <span class="meta-item" title="Last repository push">
+          Updated {{ pushed }}
+        </span>
+        {%- endif %}
+      </div>
+
+      <div class="card-tags">
+        {%- for tag in pkg.tags %}
+        <span class="tag">{{ tag }}</span>
+        {%- endfor %}
+      </div>
+
+      <div class="card-links">
+        {%- if pkg.docs %}
+        <a href="{{ pkg.docs }}" rel="noopener noreferrer">Docs</a>
+        {%- endif %}
+        {%- if pkg.pypi %}
+        <a href="https://pypi.org/project/{{ pkg.pypi }}/" rel="noopener noreferrer">PyPI</a>
+        {%- endif %}
+        <a href="{{ pkg.repository }}" rel="noopener noreferrer">Source</a>
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+
+  <p class="no-results" id="no-results" hidden>
+    No packages match your search. Want to
+    <a href="https://github.com/archesproject/arches-catalog#submitting-a-package">submit one?</a>
+  </p>
+</section>
+
+<script>
+  // Client-side filtering (no dependency on Pagefind for basic filter UX)
+  const grid = document.getElementById("package-grid");
+  const cards = [...grid.querySelectorAll(".package-card")];
+  const searchInput = document.getElementById("search");
+  const kindFilter = document.getElementById("filter-kind");
+  const statusFilter = document.getElementById("filter-status");
+  const visibleCount = document.getElementById("visible-count");
+  const noResults = document.getElementById("no-results");
+
+  function filterCards() {
+    const query = searchInput.value.trim().toLowerCase();
+    const kind = kindFilter.value;
+    const status = statusFilter.value;
+
+    let visible = 0;
+    for (const card of cards) {
+      const matchesKind = !kind || card.dataset.kind === kind;
+      const matchesStatus = !status || card.dataset.status === status;
+      const matchesQuery =
+        !query || card.textContent.toLowerCase().includes(query);
+
+      const show = matchesKind && matchesStatus && matchesQuery;
+      card.style.display = show ? "" : "none";
+      if (show) visible++;
+    }
+
+    visibleCount.textContent = visible;
+    noResults.hidden = visible > 0;
+  }
+
+  searchInput.addEventListener("input", filterCards);
+  kindFilter.addEventListener("change", filterCards);
+  statusFilter.addEventListener("change", filterCards);
+</script>
