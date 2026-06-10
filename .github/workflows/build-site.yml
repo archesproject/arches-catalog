@@ -57,6 +57,8 @@ jobs:
 
       - name: Build site
         working-directory: site
+        env:
+          ELEVENTY_PATH_PREFIX: /arches-catalog/
         run: npm run build
 
       - name: Build Pagefind search index
