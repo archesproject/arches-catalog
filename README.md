@@ -19,7 +19,7 @@ The registry is **discovery-only** — code stays in the author's own repository
 
 Clone the arches-catalog repo and checkout the relevant branch:
 
-If installing for development checkout the `development` branch. 
+If installing for development checkout the `development` branch.    
 If installing for package submission checkout the `main` branch.
 
 ### If installing for deployment
