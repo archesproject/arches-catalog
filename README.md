@@ -15,6 +15,27 @@ The registry is **discovery-only** — code stays in the author's own repository
 
 ---
 
+## Installation
+
+Clone the arches-catalog repo and checkout the relevant branch:
+
+If installing for development checkout the `development` branch. 
+If installing for package submission checkout the `main` branch.
+
+### If installing for deployment
+
+Navigate to the arches-catalog directory from your terminal and run:
+```
+pip install -e .
+```
+
+Change directory to `site/` and run eleventy:
+```
+npm run dev
+```
+
+---
+
 ## Submitting a package
 
 ### 1. Fork this repository
@@ -99,6 +120,11 @@ You can validate your manifest locally before opening a PR:
 pip install check-jsonschema
 check-jsonschema --schemafile schema.json packages/your-package-name.yaml
 ```
+
+---
+
+
+
 
 ---
 
