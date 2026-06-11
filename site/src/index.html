@@ -77,7 +77,7 @@ title: Arches Catalog — Community Extensions and Applications
           <a href="{{ pkg.repository }}" class="card-name" rel="noopener noreferrer">{{ pkg.name }}</a>
         </div>
         <div class="card-badges">
-          <span class="badge badge-kind">{{ pkg.kind }}</span>
+          <span class="badge {{ pkg.kind | kindClass }}">{{ pkg.kind }}</span>
           <span class="badge {{ pkg.status | statusClass }}">{{ pkg.status }}</span>
         </div>
       </div>

@@ -23,6 +23,15 @@ export default function (eleventyConfig) {
     return classes[status] ?? "status-experimental";
   });
 
+  eleventyConfig.addFilter("kindClass", (kind) => {
+    const classes = {
+      application: "kind-application",
+      extension: "kind-extension",
+      tool: "kind-tool",
+    };
+    return classes[kind] ?? "kind-extension";
+  });
+
   eleventyConfig.addFilter("githubStars", (pkg) => {
     return pkg._github?.github_stars ?? null;
   });
