@@ -70,7 +70,7 @@
     "status": {
       "type": "string",
       "description": "Development maturity of the package.",
-      "enum": ["planning", "experimental", "beta", "stable", "maintenance"]
+      "enum": ["planning", "alpha", "experimental", "beta", "stable", "maintenance"]
     }
   }
 }

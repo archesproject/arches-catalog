@@ -18,6 +18,7 @@ export default function (eleventyConfig) {
       experimental: "status-experimental",
       maintenance: "status-maintenance",
       planning: "status-planning",
+      alpha: "status-alpha",
     };
     return classes[status] ?? "status-experimental";
   });
