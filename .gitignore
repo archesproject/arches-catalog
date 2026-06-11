@@ -1,0 +1,7 @@
+node_modules/
+_site/
+site/node_modules/
+site/_site/
+__pycache__/
+*.pyc
+site/src/_data/packages.json
