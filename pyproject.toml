@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arches-catalog"
+readme = "README.md"
+authors = [
+    {name = "Arches Project"}
+]
+description = "Arches community catalog site"
+version = "1.0.0"
+license = "AGPL-3.0-or-later"
+requires-python = ">=3.11"
+keywords = ["arches", "cultural heritage"]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "requests",
+    "pyyaml",
+    "check-jsonschema",
+]
+
+[dependency-groups]
+dev = [
+    "black==24.4.2",
+    "pre-commit==4.5.1",
+]
+
+[tool.setuptools.packages.find]
+namespaces = false
+
+[tool.black]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
