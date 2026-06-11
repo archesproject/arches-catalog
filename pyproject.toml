@@ -4,7 +4,7 @@ readme = "README.md"
 authors = [
     {name = "Arches Project"}
 ]
-description = "Arches community packages catalog site"
+description = "Arches community catalog site"
 version = "1.0.0"
 license = "AGPL-3.0-or-later"
 requires-python = ">=3.11"
@@ -19,4 +19,5 @@ classifiers = [
 dependencies = [
     "requests",
     "pyyaml",
+    "check-jsonschema",
 ]
