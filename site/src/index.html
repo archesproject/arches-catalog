@@ -44,6 +44,16 @@ title: Arches Catalog — Community Extensions and Applications
         <option value="maintenance">Maintenance</option>
         <option value="planning">Planning</option>
       </select>
+
+      <input
+        type="text"
+        id="filter-arches-version"
+        class="version-input"
+        placeholder="Arches version, e.g. 8.1"
+        aria-label="Filter by Arches version"
+        autocomplete="off"
+        spellcheck="false"
+      />
     </div>
   </div>
 
@@ -58,6 +68,7 @@ title: Arches Catalog — Community Extensions and Applications
       class="package-card"
       data-kind="{{ pkg.kind }}"
       data-status="{{ pkg.status }}"
+      data-arches-versions="{{ pkg.arches_versions }}"
       data-pagefind-body
     >
       <div class="card-header">
@@ -132,11 +143,48 @@ title: Arches Catalog — Community Extensions and Applications
   const PAGE_SIZE = 12;
   let currentPage = 1;
 
+  function compareVersions(a, b) {
+    const pa = a.split(".").map(Number);
+    const pb = b.split(".").map(Number);
+    const len = Math.max(pa.length, pb.length);
+    for (let i = 0; i < len; i++) {
+      const diff = (pa[i] ?? 0) - (pb[i] ?? 0);
+      if (diff !== 0) return diff;
+    }
+    return 0;
+  }
+
+  function satisfiesVersionSpec(version, spec) {
+    return spec.split(",").every((clause) => {
+      const match = clause.trim().match(/^(>=|<=|>|<|==|!=|~=)\s*(.+)$/);
+      if (!match) return true;
+      const [, op, ver] = match;
+      const cmp = compareVersions(version, ver);
+      switch (op) {
+        case ">=": return cmp >= 0;
+        case "<=": return cmp <= 0;
+        case ">":  return cmp > 0;
+        case "<":  return cmp < 0;
+        case "==": return cmp === 0;
+        case "!=": return cmp !== 0;
+        case "~=": {
+          const parts = ver.split(".");
+          const floor = ver;
+          const ceiling = parts.slice(0, -1).join(".") + "." + (Number(parts[parts.length - 2]) + 1);
+          return compareVersions(version, floor) >= 0 && compareVersions(version, ceiling.replace(/\.\d+$/, "." + (Number(parts[parts.length - 2]) + 1))) < 0;
+        }
+        default: return true;
+      }
+    });
+  }
+
+  // Client-side filtering
   const grid = document.getElementById("package-grid");
   const cards = [...grid.querySelectorAll(".package-card")];
   const searchInput = document.getElementById("search");
   const kindFilter = document.getElementById("filter-kind");
   const statusFilter = document.getElementById("filter-status");
+  const versionFilter = document.getElementById("filter-arches-version");
   const visibleCount = document.getElementById("visible-count");
   const noResults = document.getElementById("no-results");
   const pagination = document.getElementById("pagination");
@@ -145,12 +193,15 @@ title: Arches Catalog — Community Extensions and Applications
     const query = searchInput.value.trim().toLowerCase();
     const kind = kindFilter.value;
     const status = statusFilter.value;
+    const version = versionFilter.value.trim();
+    const versionValid = version && /^\d+(\.\d+)*$/.test(version);
 
     const matching = cards.filter((card) => {
       const matchesKind = !kind || card.dataset.kind === kind;
       const matchesStatus = !status || card.dataset.status === status;
       const matchesQuery = !query || card.textContent.toLowerCase().includes(query);
-      return matchesKind && matchesStatus && matchesQuery;
+      const matchesVersion = !versionValid || satisfiesVersionSpec(version, card.dataset.archesVersions || "");
+      return matchesKind && matchesStatus && matchesQuery && matchesVersion;
     });
 
     const totalPages = Math.max(1, Math.ceil(matching.length / PAGE_SIZE));
@@ -165,6 +216,7 @@ title: Arches Catalog — Community Extensions and Applications
 
     visibleCount.textContent = matching.length;
     noResults.hidden = matching.length > 0;
+    versionFilter.classList.toggle("version-input--active", versionValid);
     renderPagination(totalPages);
   }
 
@@ -209,6 +261,7 @@ title: Arches Catalog — Community Extensions and Applications
   searchInput.addEventListener("input", resetAndFilter);
   kindFilter.addEventListener("change", resetAndFilter);
   statusFilter.addEventListener("change", resetAndFilter);
+  versionFilter.addEventListener("input", resetAndFilter);
 
   filterCards();
 </script>
