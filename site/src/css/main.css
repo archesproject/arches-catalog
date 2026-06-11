@@ -22,6 +22,12 @@
   --color-planning-bg: #e0f2fe;
   --color-alpha: #6d28d9;
   --color-alpha-bg: #ede9fe;
+  --color-application: #1e3a6e;
+  --color-application-bg: #dce8fb;
+  --color-extension: var(--color-arches-red-dark);
+  --color-extension-bg: #f7dede;
+  --color-tool: #145c3e;
+  --color-tool-bg: #d4f0e8;
   --radius-card: 0.375rem;
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
   --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -371,10 +377,9 @@ a:hover { color: var(--color-arches-red-dark); }
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
 }
-.badge-kind {
-  background: #f7dede;
-  color: var(--color-arches-red-dark);
-}
+.kind-application { background: var(--color-application-bg); color: var(--color-application); }
+.kind-extension { background: var(--color-extension-bg); color: var(--color-extension); }
+.kind-tool { background: var(--color-tool-bg); color: var(--color-tool); }
 .status-stable { background: var(--color-stable-bg); color: var(--color-stable); }
 .status-beta { background: var(--color-beta-bg); color: var(--color-beta); }
 .status-alpha { background: var(--color-alpha-bg); color: var(--color-alpha); }
