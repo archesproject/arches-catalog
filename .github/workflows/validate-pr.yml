@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -26,7 +28,6 @@ jobs:
         id: changed
         run: |
           # List YAML files changed in this PR (new or modified)
-          git fetch origin ${{ github.base_ref }} --depth=1
           changed=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- 'packages/*.yaml')
           echo "files<<EOF" >> "$GITHUB_OUTPUT"
           echo "$changed" >> "$GITHUB_OUTPUT"
