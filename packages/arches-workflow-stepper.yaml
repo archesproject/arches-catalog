@@ -1,0 +1,16 @@
+name: arches-workflow-stepper
+kind: extension
+summary: Provides a set of base components to create a PrimeVue workflow stepper.
+repository: https://github.com/bferguso/arches-workflow-stepper
+license: AGPL-3.0-or-later
+maintainers:
+  - bferguso
+arches_versions: ">=8.1,<9.0"
+domains:
+  - domain-agnostic
+tags:
+  - primevue
+  - stepper
+  - workflow
+  - front-end
+status: planning
