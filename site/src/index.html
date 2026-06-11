@@ -73,11 +73,13 @@ title: Arches Catalog — Community Extensions and Applications
       data-pagefind-body
     >
       <div class="card-header">
-        <a href="{{ pkg.repository }}" class="card-name" rel="noopener noreferrer">
-          {{ pkg.name }}
-        </a>
-        <span class="badge badge-kind">{{ pkg.kind }}</span>
-        <span class="badge {{ pkg.status | statusClass }}">{{ pkg.status }}</span>
+        <div class="card-title-row">
+          <a href="{{ pkg.repository }}" class="card-name" rel="noopener noreferrer">{{ pkg.name }}</a>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-kind">{{ pkg.kind }}</span>
+          <span class="badge {{ pkg.status | statusClass }}">{{ pkg.status }}</span>
+        </div>
       </div>
 
       {%- if pkg.maintainers and pkg.maintainers.length %}
@@ -91,25 +93,12 @@ title: Arches Catalog — Community Extensions and Applications
       <p class="card-summary">{{ pkg.summary }}</p>
 
       <div class="card-meta">
-        {%- set version = pkg | pypiVersion %}
-        {%- if version %}
-        <span class="meta-item" title="Latest PyPI version">
-          v{{ version }}
-        </span>
-        {%- endif %}
-
-        {%- set stars = pkg | githubStars %}
-        {%- if stars != null %}
-        <span class="meta-item" title="GitHub stars">
-          ★ {{ stars }}
-        </span>
-        {%- endif %}
-
         {%- set pushed = pkg | lastPushed %}
+        {%- if pkg.arches_versions %}
+        <span class="meta-item meta-item--arches-versions" title="Supported Arches versions">Arches {{ pkg.arches_versions }}</span>
+        {%- endif %}
         {%- if pushed %}
-        <span class="meta-item" title="Last repository push">
-          Updated {{ pushed }}
-        </span>
+        <span class="meta-item meta-item--updated" title="Last repository push">Updated {{ pushed }}</span>
         {%- endif %}
       </div>
 
@@ -120,13 +109,19 @@ title: Arches Catalog — Community Extensions and Applications
       </div>
 
       <div class="card-links">
+        {%- set version = pkg | pypiVersion %}
+        {%- set stars = pkg | githubStars %}
         {%- if pkg.docs %}
         <a href="{{ pkg.docs }}" rel="noopener noreferrer">Docs</a>
         {%- endif %}
         {%- if pkg.pypi %}
-        <a href="https://pypi.org/project/{{ pkg.pypi }}/" rel="noopener noreferrer">PyPI</a>
+        <span class="card-link-group">
+          <a href="https://pypi.org/project/{{ pkg.pypi }}/" rel="noopener noreferrer">PyPI</a>{%- if version %}<span class="card-link-detail">v{{ version }}</span>{%- endif %}
+        </span>
         {%- endif %}
-        <a href="{{ pkg.repository }}" rel="noopener noreferrer">Source</a>
+        <span class="card-link-group">
+          <a href="{{ pkg.repository }}" rel="noopener noreferrer">Source</a>{%- if stars != null %}<span class="card-link-detail">★ {{ stars }}</span>{%- endif %}
+        </span>
       </div>
     </li>
     {%- endfor %}
