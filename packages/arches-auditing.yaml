@@ -1,0 +1,17 @@
+name: arches-auditing
+kind: extension
+summary: Arches extension for auditing your Arches data via the edit log.
+repository: https://github.com/k-int/arches-auditing
+docs: https://github.com/k-int/arches-auditing/blob/dev/1.0.x/README.md
+license: AGPL-3.0-or-later
+maintainers:
+  - k-int
+arches_versions: ">=7.6.23,<8"
+domains:
+  - cultural-heritage
+tags:
+  - auditing
+  - vue
+  - frontend
+  - edit-log
+status: experimental
