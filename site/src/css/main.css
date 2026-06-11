@@ -333,6 +333,41 @@ a:hover { color: var(--color-arches-red-dark); }
   padding: 3rem;
 }
 
+/* ===== Pagination ===== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.page-btn {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.page-btn:hover:not(:disabled) {
+  border-color: var(--color-arches-red);
+  color: var(--color-arches-red);
+}
+.page-btn--active {
+  background: var(--color-arches-red);
+  border-color: var(--color-arches-red);
+  color: white;
+  font-weight: 600;
+}
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
 /* ===== Footer ===== */
 .site-footer {
   background: var(--color-bg-footer);
