@@ -1,5 +1,5 @@
 name: arches-containers
-kind: extension
+kind: tool
 summary: A CLI tool to create and manage containerised Arches development environments using Docker Compose templates.
 repository: https://github.com/HistoricEngland/arches-containers
 pypi: arches-containers

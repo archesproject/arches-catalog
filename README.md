@@ -1,4 +1,4 @@
-# arches-packages
+# arches-catalog
 
 The community registry for [Arches](https://www.archesproject.org/) extensions and applications. Browse the catalog at **https://archesproject.github.io/arches-catalog** (or your deployed URL).
 
@@ -6,10 +6,11 @@ The community registry for [Arches](https://www.archesproject.org/) extensions a
 
 ## What belongs here
 
-| Kind | Description | Examples |
-|------|-------------|---------|
-| `extension` | Adds functionality to any Arches installation | arches-modular-reports, arches-querysets, arches-component-lab |
-| `application` | A domain-specific composition of core + extensions | arches-lingo, arches-her, arches-addressing |
+| Kind            | Description                                        | Examples                                                       |
+| --------------- | -------------------------------------------------- | -------------------------------------------------------------- |
+| `extension`   | Adds functionality to any Arches installation      | arches-modular-reports, arches-querysets, arches-component-lab |
+| `application` | A domain-specific composition of core + extensions | arches-lingo, arches-her, arches-addressing                    |
+| `tool`        | A developer utility that supports Arches workflows but is not installed as part of an Arches project | arches-containers |
 
 The registry is **discovery-only** — code stays in the author's own repository and on PyPI. This repo holds only the metadata manifests.
 
@@ -27,7 +28,7 @@ Create a new file at `packages/<your-package-name>.yaml`. Use the schema below a
 
 ```yaml
 name: your-package-name         # PyPI name or unique slug (lowercase, hyphens)
-kind: application               # extension | application
+kind: application               # extension | application | tool
 summary: One sentence that explains what your package does.
 repository: https://github.com/you/your-package
 pypi: your-package-name         # omit if not on PyPI
@@ -74,20 +75,20 @@ Open a PR that deletes the manifest file. Include a brief reason in the PR descr
 
 See [`schema.json`](schema.json) for the full JSON Schema definition. Key fields:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `name` | Yes | Package slug (matches PyPI name if published) |
-| `kind` | Yes | `extension` or `application` |
-| `summary` | Yes | One-sentence description, 140 chars max |
-| `repository` | Yes | Source repository URL |
-| `license` | Yes | SPDX license identifier |
-| `maintainers` | Yes | GitHub usernames/orgs |
-| `arches_versions` | Yes | PEP 440 specifier for compatible Arches versions |
-| `status` | Yes | `experimental`, `beta`, `stable`, or `maintenance` |
-| `pypi` | No | PyPI package name |
-| `docs` | No | Documentation URL |
-| `domains` | No | High-level subject domains |
-| `tags` | No | Freeform search tags (lowercase, hyphen-separated) |
+| Field               | Required | Description                                                |
+| ------------------- | -------- | ---------------------------------------------------------- |
+| `name`            | Yes      | Package slug (matches PyPI name if published)              |
+| `kind`            | Yes      | `extension`, `application`, or `tool`              |
+| `summary`         | Yes      | One-sentence description, 140 chars max                    |
+| `repository`      | Yes      | Source repository URL                                      |
+| `license`         | Yes      | SPDX license identifier                                    |
+| `maintainers`     | Yes      | GitHub usernames/orgs                                      |
+| `arches_versions` | Yes      | PEP 440 specifier for compatible Arches versions           |
+| `status`          | Yes      | `experimental`, `beta`, `stable`, or `maintenance` |
+| `pypi`            | No       | PyPI package name                                          |
+| `docs`            | No       | Documentation URL                                          |
+| `domains`         | No       | High-level subject domains                                 |
+| `tags`            | No       | Freeform search tags (lowercase, hyphen-separated)         |
 
 ---
 
