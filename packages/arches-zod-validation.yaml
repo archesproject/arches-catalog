@@ -1,18 +1,16 @@
-name: arches-zod-validation         # PyPI name or unique slug (lowercase, hyphens)
-kind: extension               # extension | application
+name: arches-zod-validation
+kind: extension
 summary: Provides a Zod validation framework for arches-vue-component and arches-queryset data
 repository: https://github.com/bferguso/arches-zod-validation
-pypi:          # omit if not on PyPI
-docs:      # omit if no docs site
-license: AGPL-3.0-or-later      # SPDX identifier
+license: AGPL-3.0-or-later
 maintainers:
   - bferguso
-arches_versions: ">=8.1,<9.0"  # PEP 440 version specifier
+arches_versions: ">=8.1,<9.0"
 domains:
-  - domain-agnostic           # high-level subject area(s)
+  - domain-agnostic
 tags:
   - primevue
   - validation
   - zod
-  - front-end               # lowercase, hyphen-separated
-status: planning            # experimental | beta | stable | maintenance
+  - front-end
+status: planning
