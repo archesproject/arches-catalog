@@ -1,0 +1,16 @@
+name: arches-zod-validation
+kind: extension
+summary: Provides a Zod validation framework for arches-vue-component and arches-queryset data
+repository: https://github.com/bferguso/arches-zod-validation
+license: AGPL-3.0-or-later
+maintainers:
+  - bferguso
+arches_versions: ">=8.1,<9.0"
+domains:
+  - domain-agnostic
+tags:
+  - primevue
+  - validation
+  - zod
+  - front-end
+status: planning

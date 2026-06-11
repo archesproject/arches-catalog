@@ -1,6 +1,6 @@
 # arches-catalog
 
-The community registry for [Arches](https://www.archesproject.org/) extensions and applications. Browse the catalog at **https://archesproject.github.io/arches-catalog** (or your deployed URL).
+The community registry for [Arches](https://www.archesproject.org/) extensions and applications. Browse the catalog at **<https://archesproject.github.io/arches-catalog>** (or your deployed URL).
 
 ---
 
@@ -41,7 +41,7 @@ domains:
   - cultural-heritage           # high-level subject area(s)
 tags:
   - your-tag                    # lowercase, hyphen-separated
-status: experimental            # experimental | beta | stable | maintenance
+status: planning            # planning | experimental | beta | stable | maintenance
 ```
 
 **Full schema reference:** [`schema.json`](schema.json)
@@ -84,7 +84,7 @@ See [`schema.json`](schema.json) for the full JSON Schema definition. Key fields
 | `license`         | Yes      | SPDX license identifier                                    |
 | `maintainers`     | Yes      | GitHub usernames/orgs                                      |
 | `arches_versions` | Yes      | PEP 440 specifier for compatible Arches versions           |
-| `status`          | Yes      | `experimental`, `beta`, `stable`, or `maintenance` |
+| `status`          | Yes      | `planning`, `experimental`, `beta`, `stable`, or `maintenance` |
 | `pypi`            | No       | PyPI package name                                          |
 | `docs`            | No       | Documentation URL                                          |
 | `domains`         | No       | High-level subject domains                                 |
