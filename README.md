@@ -22,11 +22,16 @@ Clone the arches-catalog repo and checkout the relevant branch:
 If installing for development checkout the `development` branch.    
 If installing for package submission checkout the `main` branch.
 
-### If installing for deployment
+### If installing for development
 
-Navigate to the arches-catalog directory from your terminal and run:
+With a virtual environment activated, navigate to the arches-catalog directory from your terminal and run:
 ```
 pip install -e .
+```
+
+To populate the Arches Catalog with package data from the manifest YAML files, run:
+```
+python scripts/enrich.py --packages-dir packages --output site/src/_data/packages.json
 ```
 
 Change directory to `site/` and run eleventy:
