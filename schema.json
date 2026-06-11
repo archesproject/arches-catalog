@@ -15,7 +15,7 @@
     "kind": {
       "type": "string",
       "description": "Whether this is a core extension, an application, or a developer tool.",
-      "enum": ["extension", "application"]
+      "enum": ["extension", "application", "tool"]
     },
     "summary": {
       "type": "string",
