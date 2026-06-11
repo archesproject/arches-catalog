@@ -249,6 +249,19 @@ a:hover { color: var(--color-arches-red-dark); }
   white-space: nowrap;
 }
 .card-name:hover { text-decoration: underline; }
+.card-owner {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+.card-owner a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+.card-owner a:hover {
+  color: var(--color-arches-red);
+  text-decoration: underline;
+}
 .card-summary {
   font-size: 0.875rem;
   color: var(--color-text);

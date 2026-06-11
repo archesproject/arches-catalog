@@ -66,6 +66,14 @@ title: Arches Catalog — Community Extensions and Applications
         <span class="badge {{ pkg.status | statusClass }}">{{ pkg.status }}</span>
       </div>
 
+      {%- if pkg.maintainers and pkg.maintainers.length %}
+      <p class="card-owner">
+        {%- for maintainer in pkg.maintainers %}
+        <a href="https://github.com/{{ maintainer }}" rel="noopener noreferrer">@{{ maintainer }}</a>{% if not loop.last %}, {% endif %}
+        {%- endfor %}
+      </p>
+      {%- endif %}
+
       <p class="card-summary">{{ pkg.summary }}</p>
 
       <div class="card-meta">
