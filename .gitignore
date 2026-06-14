@@ -2,6 +2,7 @@ node_modules/
 _site/
 site/node_modules/
 site/_site/
+site/src/_data/packages.json
 __pycache__/
 *.pyc
-site/src/_data/packages.json
+arches_catalog.egg*
