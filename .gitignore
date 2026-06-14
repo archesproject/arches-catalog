@@ -6,3 +6,5 @@ site/src/_data/packages.json
 __pycache__/
 *.pyc
 arches_catalog.egg*
+.vscode
+*.DS_Store
