@@ -445,9 +445,17 @@ a:hover { color: var(--color-arches-red-dark); }
   opacity: 0.4;
   user-select: none;
 }
-/* 'Updated' sits on its own line below the other meta items */
-.meta-item--updated {
+/* Supported versions get their own line; license and 'Updated' share the next */
+.meta-item--arches-versions {
   flex-basis: 100%;
+}
+.meta-item--license a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+.meta-item--license a:hover {
+  color: var(--color-arches-red);
+  text-decoration: underline;
 }
 .card-tags {
   display: flex;

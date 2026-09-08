@@ -142,8 +142,11 @@ title: Arches Software Directory — Community Applications, Extensions, Tools, 
         {%- if pkg.arches_versions %}
         <span class="meta-item meta-item--arches-versions" title="Supported Arches versions">Arches {{ pkg.arches_versions }}</span>
         {%- endif %}
+        {%- if pkg.license %}
+        <span class="meta-item meta-item--license"><a href="https://spdx.org/licenses/{{ pkg.license }}.html" title="License (SPDX identifier)" rel="noopener noreferrer">{{ pkg.license }}</a></span>
+        {%- endif %}
         {%- if pushed %}
-        <span class="meta-item meta-item--updated" title="Last repository push">Updated {{ pushed }}</span>
+        <span class="meta-item-group meta-item--updated">{% if pkg.license %}<span class="meta-sep" aria-hidden="true">&middot;</span>{% endif %}<span class="meta-item" title="Last repository push">Updated {{ pushed }}</span></span>
         {%- endif %}
       </div>
 
