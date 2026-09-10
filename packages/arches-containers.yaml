@@ -4,7 +4,7 @@ summary: A CLI tool to create and manage containerised Arches development enviro
 repository: https://github.com/HistoricEngland/arches-containers
 pypi: arches-containers
 docs: https://deepwiki.com/HistoricEngland/arches-containers
-license: AGPL-3.0-or-later
+license: AGPL-3.0-only
 maintainers:
   - HistoricEngland
 arches_versions: ">=7.6,<=8.1"

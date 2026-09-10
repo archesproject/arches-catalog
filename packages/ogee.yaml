@@ -1,11 +1,11 @@
 name: ogee
 kind: package
 summary: Arches starter package implementing the Linked.art data model, with a complete supporting vocabulary and reusable documentation.
-repository: https://github.com/archesproject/Ogee
-docs: https://github.com/archesproject/Ogee/blob/main/README.md
+repository: https://github.com/thegetty/Ogee
+docs: https://github.com/thegetty/Ogee/blob/main/README.md
 license: CC0-1.0
 maintainers:
-  - archesproject
+  - thegetty
 arches_versions: ">=7.6,<8.0"
 domains:
   - linked-data

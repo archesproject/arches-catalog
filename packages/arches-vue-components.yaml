@@ -3,7 +3,7 @@ kind: extension
 summary: Vue 3 and PrimeVue component library for building custom Arches application front ends.
 repository: https://github.com/archesproject/arches-vue-components
 pypi: arches-vue-components
-license: AGPL-3.0-or-later
+license: AGPL-3.0-only
 maintainers:
   - archesproject
 arches_versions: ">=8.0"

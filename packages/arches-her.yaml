@@ -4,7 +4,7 @@ summary: Arches application for UK Historic Environment Records (HERs), conformi
 repository: https://github.com/archesproject/arches-her
 pypi: arches-her
 docs: https://www.archesproject.org/arches-for-hers/
-license: AGPL-3.0-or-later
+license: AGPL-3.0-only
 maintainers:
   - archesproject
 arches_versions: ">=7.6.23,<8.0"
