@@ -3,7 +3,7 @@ kind: extension
 summary: Django-native ORM interface for querying Arches graph data, building APIs, and expressing application business logic.
 repository: https://github.com/archesproject/arches-querysets
 pypi: arches-querysets
-license: AGPL-3.0-or-later
+license: AGPL-3.0-only
 maintainers:
   - archesproject
 arches_versions: ">=7.6.22,!=8.0.0,<9.0"

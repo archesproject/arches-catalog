@@ -3,7 +3,7 @@ kind: application
 summary: Advanced search application for Arches with faceted filtering, controlled-list integration, and configurable result display.
 repository: https://github.com/archesproject/arches-search
 pypi: arches-search
-license: AGPL-3.0-or-later
+license: AGPL-3.0-only
 maintainers:
   - archesproject
 arches_versions: ">=8.2,<8.3"

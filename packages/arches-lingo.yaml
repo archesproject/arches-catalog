@@ -4,7 +4,7 @@ summary: An Arches application for creating, managing, and sharing controlled vo
 repository: https://github.com/archesproject/arches-lingo
 pypi: arches-lingo
 docs: https://www.archesproject.org/lingo
-license: AGPL-3.0-or-later
+license: AGPL-3.0-only
 maintainers:
   - archesproject
 arches_versions: ">=8.1.4,<8.2"

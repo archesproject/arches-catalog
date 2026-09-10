@@ -3,7 +3,7 @@ kind: extension
 summary: Arches extension that collects resource instances into user-owned sets, adding a datatype and widgets for working with them.
 repository: https://github.com/archesproject/arches-resource-sets
 pypi: arches-resource-sets
-license: AGPL-3.0-or-later
+license: AGPL-3.0-only
 maintainers:
   - archesproject
 arches_versions: ">=8.1,<9.0"

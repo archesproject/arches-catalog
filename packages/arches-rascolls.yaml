@@ -2,7 +2,7 @@ name: arches-rascolls
 kind: application
 summary: Reference and sample collections application for Arches, providing demo datasets and reference data for development and testing.
 repository: https://github.com/archesproject/arches-rascolls
-license: AGPL-3.0-or-later
+license: AGPL-3.0-only
 maintainers:
   - archesproject
 arches_versions: ">=8.2,<9.0"
